@@ -1,0 +1,91 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.rect {
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.rect2 {
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.required-star::after {
+    position: relative;
+    content: "*";
+    font-weight: 700;
+    font-size: 17px;
+    color: red;
+}
+
+.active-link {
+    color: white !important;
+    font-weight: 600;
+}
+
+.c-btn {
+    border: none;
+    cursor: pointer;
+    padding: 7px 35px;
+    border-radius: 35px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.back-btn {
+    background-color: azure;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.success-btn {
+    background-color: #28A264;
+    color: white;
+}
+
+.inf-btn {
+    background-color: rgb(36, 132, 211);
+    color: white;
+}
+
+.del-btn {
+    background-color: #c1001d;
+    color: white;
+}
+
+.cart-btn {
+    background-color: #df5f09;
+    color: white;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.main-title {
+    text-transform: uppercase;
+}
+
+input {
+    border-radius: 22px !important;
+}
+
+.rect-btn {
+    padding: 0 !important;
+    border-radius: 0 !important;
+    width: 50% !important;
+    height: 50px !important;
+    text-transform: uppercase !important;
+}
+
+html,
+body {
+    background: #d7dbf3;
+}

@@ -1,0 +1,22 @@
+.rect {
+    width: 350px !important;
+    margin: 0 auto !important;
+}
+
+.login-reg-btn {
+    width: 100% !important;
+    border-radius: 2px;
+}
+
+.emp-top-div {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.signup {
+    font-weight: 600;
+    color: blueviolet;
+    cursor: pointer;
+}

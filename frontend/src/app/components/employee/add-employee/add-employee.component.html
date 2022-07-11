@@ -1,0 +1,131 @@
+<div class="rect p-3 bg-white">
+    <div class="emp-top-div">
+        <h4>Employee Form</h4>
+    </div>
+    <div class="mb-2">
+        <button class="c-btn rect-btn " [ngClass]="!isLogin?'back-btn':'inf-btn'"
+            (click)="isLogin = true">Login</button>
+        <button class="c-btn rect-btn" [ngClass]="isLogin?'back-btn':'inf-btn'"
+            (click)="isLogin = false">Register</button>
+    </div>
+    <div class="login-register">
+        <div *ngIf="isLogin">
+            <div class="submit-form">
+                <form [formGroup]="loginForm">
+                    <div class="mb-3 mt-2">
+                        <input type="text" class="form-control" placeholder="Username/Email Id"
+                            formControlName="usernameEmail">
+                        <div *ngIf="!loginForm.get('usernameEmail')?.pristine && loginForm.get('usernameEmail')?.touched"
+                            class="text-danger">
+                            <div *ngIf="loginForm.controls['usernameEmail'].hasError('required')">Username/Email Id is
+                                Required
+                            </div>
+                            <div *ngIf="loginForm.controls['usernameEmail'].hasError('invalidUsernameEmail')">
+                                Username/Email Id is
+                                invalid
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center">
+                            <input [type]="showPass?'text':'password'" class="form-control" placeholder="Password"
+                                formControlName="password">
+                            <i class="fa" [ngClass]="showPass?'fa-eye-slash':'fa-eye'" id="togglePassword"
+                                style="margin-left: -30px; cursor: pointer;" (click)="showPass=!showPass"></i>
+                        </div>
+                        <div *ngIf="!loginForm.get('password')?.pristine && loginForm.get('password')?.touched"
+                            class="text-danger">
+                            <div *ngIf="loginForm.controls['password'].hasError('required')">Password is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2 d-flex justify-content-end">
+                        <button (click)="login()" class="c-btn success-btn login-reg-btn"
+                            [disabled]="!loginForm.valid">Login</button>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-center">
+                        <label for="">New User?</label><label class="signup ml-2" (click)="isLogin = false">Sign
+                            Up</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="!isLogin">
+            <div class="submit-form">
+                <form [formGroup]="registerForm">
+                    <div class="mb-3 mt-2">
+                        <input type="text" class="form-control" placeholder="Name" required formControlName="name" />
+                        <div *ngIf="!registerForm.get('name')?.pristine && registerForm.get('name')?.touched"
+                            class="text-danger">
+                            <div *ngIf="registerForm.controls['name'].hasError('required')">Name is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 mt-2">
+                        <input class="form-control" required formControlName="email" placeholder="Email Id" />
+                        <div *ngIf="!registerForm.get('email')?.pristine && registerForm.get('email')?.touched"
+                            class="text-danger">
+                            <div *ngIf="registerForm.controls['email'].hasError('required')">Email is Required
+                            </div>
+                            <div *ngIf="registerForm.controls['email'].hasError('email')">Invalid email Id
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 mt-2">
+                        <input type="text" class="form-control" formControlName="username" placeholder="Username">
+                        <div *ngIf="!registerForm.get('username')?.pristine && registerForm.get('username')?.touched"
+                            class="text-danger">
+                            <div *ngIf="registerForm.controls['username'].hasError('required')">Username is Required
+                            </div>
+                            <div *ngIf="registerForm.controls['username'].hasError('pattern')">Username should only
+                                contain
+                                characters like A-Z, a-z and '-'.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 mt-2">
+                        <input class="form-control" formControlName="password" placeholder="Password">
+                        <div *ngIf="!registerForm.get('password')?.pristine && registerForm.get('password')?.touched"
+                            class="text-danger">
+                            <div *ngIf="registerForm.controls['password'].hasError('required')">Password is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 mt-2">
+                        <div class="d-flex align-items-center">
+                            <input [type]="showCPass?'text':'password'" name="password" autocomplete="current-password"
+                                required="" id="id_password" class="form-control" formControlName="c_password"
+                                placeholder="Confirm Password">
+                            <i class="fa" [ngClass]="showCPass?'fa-eye-slash':'fa-eye'" id="toggleCPassword"
+                                style="margin-left: -30px; cursor: pointer;" (click)="showCPass=!showCPass"></i>
+                        </div>
+
+                        <div *ngIf="!registerForm.get('c_password')?.pristine && registerForm.get('c_password')?.touched"
+                            class="text-danger">
+                            <div *ngIf="registerForm.controls['c_password'].hasError('required')">Confirm Password is
+                                Required
+                            </div>
+                            <div *ngIf="(registerForm.get('c_password')?.value!=registerForm.get('password')?.value)
+                            && registerForm.get('c_password')?.value!='' && registerForm.get('password')?.value!=''">
+                                Password does not
+                                match
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" formControlName="agree" type="checkbox" value=""
+                            id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            I Accept Terms and Conditions.
+                        </label>
+                    </div>
+                    <div class="mt-2 d-flex justify-content-end">
+                        <button class="c-btn success-btn login-reg-btn" (click)="register()">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

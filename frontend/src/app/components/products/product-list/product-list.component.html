@@ -1,0 +1,70 @@
+<div class="list rect bg-white">
+  <div class="p-3">
+    <div class="header-div">
+      <div class="d-flex align-items-center" *ngIf="!isCartView">
+        <i class="fa fa-list mr-2 h-2" aria-hidden="true"></i>
+        <h4 class="main-title">Product List</h4>
+      </div>
+      <div class="d-flex align-items-center" *ngIf="isCartView">
+        <h4 class="main-title">Cart</h4>
+      </div>
+      <div *ngIf="!isCartView">
+        <button class="c-btn inf-btn" routerLink="/product/add-edit">
+          <i class="fa fa-plus" aria-hidden="true"></i>Add
+        </button>
+      </div>
+    </div>
+    <div class="cart-card-items">
+      <div class="mb-2" *ngFor="let product of products; let i = index">
+        <div class="list-group-item cards">
+          <div class="d-flex flex-column">
+            <div>
+              <img *ngIf="product.photo" class="prod-image" [src]="product.photo" alt="">
+              <label *ngIf="product.photo=='' || !product.photo" class="no-img">NO IMAGE!</label>
+            </div>
+            <div>
+              <div class="p-2">
+                <div class="d-flex justify-content-between">
+                  <label class="prod-title">{{ product.title }}</label>
+                  <label class="price">₹{{product.price}}</label>
+                </div>
+                <div class="desc mb-3">
+                  {{ product.description}}
+                </div>
+                <div class="mb-2" *ngFor="let ed of product?.extraDetails">
+                  <div>
+                    <label class="cap-key">{{ed.key}}</label>
+                    <br>
+                    <div *ngIf="ed.key.toUpperCase()=='COLOR'">
+                      <svg width="20" height="20">
+                        <rect width="20" height="20" [style]="'fill:{{ed.value}};stroke-width:3;stroke:rgb(0,0,0)'" />
+                      </svg>
+                    </div>
+                    <label *ngIf="ed.key.toUpperCase()!='COLOR'">
+                      {{ed.value}}
+                    </label>
+                  </div>
+                </div>
+                <div *ngIf="product?.extraDetails.length==0">
+                  <strong>Extra Details: NA</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button *ngIf="!isCartView" class="c-btn rect-btn inf-btn" routerLink="/product/add-edit/{{ product.id }}">Edit</button>
+            <button *ngIf="!isCartView" class="c-btn rect-btn cart-btn" (click)="addToCart(product)">Add to
+              Cart</button>
+            <button *ngIf="isCartView" class="c-btn rect-btn cart-btn" routerLink="/product/list/">Home</button>
+            <button *ngIf="isCartView" class="c-btn rect-btn inf-btn" (click)="delProd()">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="alert" *ngIf="products && products.length==0">
+    <div class="alert-info pt-2 pb-2">
+      No Products!
+    </div>
+  </div>
+</div>

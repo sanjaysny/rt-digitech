@@ -1,0 +1,103 @@
+<div class="rect pt-3 pb-3 bg-white mb-5">
+  <div class="p-3 d-flex align-items-center">
+    <h4 class="main-title">{{isEdit?'Edit Product':'Add Product'}}</h4>
+  </div>
+  <div class="pl-3 pr-3">
+    <form [formGroup]="productForm">
+      <div class="form-group">
+        <label for="title" class="required-star">Title</label>
+        <input type="text" class="form-control" id="title" required formControlName="title" name="title" />
+        <div *ngIf="!productForm.get('title')?.pristine && productForm.get('title')?.touched" class="text-danger">
+          <div *ngIf="productForm.controls['title'].hasError('required')">Account Number is Required
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input placeholder="(Optional)" autocomplete="off" class="form-control" id="description"
+          formControlName="description" name="description" />
+      </div>
+      <div>
+        <label for="product-logo" class="required-star">Image</label>
+        <input *ngIf="!productForm.get('photo')?.value || !isEdit" id="file-input" type="file" class="form-control"
+          style="height: 100%;" accept="image/*" formControlName="photo" (change)="imageUpload($event)">
+        <div *ngIf="productForm.get('photo')?.value && isEdit">
+          <img style="height: 250px;" [src]="productForm.get('photo')?.value" alt="">
+          <button class="c-btn ml-2" (click)="productForm.get('photo')?.setValue('')">
+            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div *ngIf="!productForm.get('photo')?.pristine && productForm.get('photo')?.touched" class="text-danger">
+          <div *ngIf="productForm.controls['photo'].hasError('required')">Image is Required
+          </div>
+        </div>
+      </div>
+      <div>
+        <label for="product-logo" class="required-star">₹ Price</label>
+        <input type="text" class="form-control" formControlName="price" (keypress)="numberOnly($event)">
+        <div *ngIf="!productForm.get('price')?.pristine && productForm.get('price')?.touched" class="text-danger">
+          <div *ngIf="productForm.controls['price'].hasError('required')">Price is Required
+          </div>
+        </div>
+      </div>
+      <div class="extra-det-btn-div mt-2 mb-3" *ngIf="!isEdit">
+        <button class="c-btn" [ngClass]="showExtraDetails?'del-btn':'inf-btn'" (click)="toggleExtraDetails()">
+          {{showExtraDetails?'CancelDetails': 'Add Details'}}
+        </button>
+      </div>
+      <div class="rect2 mt-2 p-3 mb-3 extra-details-main-div" *ngIf="showExtraDetails || isEdit">
+        <div class="mt-3 extra-d-header">
+          <div>
+            <fieldset>
+              <legend>Extra Details <span class="optional">(Optional)</span></legend>
+            </fieldset>
+          </div>
+        </div>
+        <ng-container *ngIf="showExtraDetails || isEdit">
+          <div class="scroll-body" formArrayName="extraDetails">
+            <div *ngFor="let prodDetail of getProdExtraDetails(); let i = index" [formGroupName]="i">
+              <div class="form-group">
+                <label>Enter Detail</label>
+                <div class="extra-details-div" [ngClass]="i==0?'mr-5rem':''">
+                  <div class="extra-d w-100">
+                    <div>
+                      <input type="text" class="form-control" formControlName="key" placeholder="Enter title" />
+                    </div>
+                    <div>
+                      <input type="text" class="form-control" formControlName="value" placeholder="Enter value" />
+                    </div>
+                  </div>
+                  <div *ngIf="i>0" class="mr-2">
+                    <button class="c-btn" (click)="removeProdExtraDetailsForm(i)">
+                      <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="showExtraDetails || isEdit">
+            <button class="c-btn inf-btn" (click)="addProdExtraDetailsForm()">Add more</button>
+          </div>
+        </ng-container>
+
+      </div>
+      <div class="mt-2 d-flex justify-content-end">
+        <div>
+          <button class="c-btn back-btn mr-3" (click)="back()">Back</button>
+        </div>
+        <div *ngIf="!isEdit">
+          <button class="c-btn success-btn" (click)="saveProduct()" [disabled]="!productForm.valid">Save</button>
+        </div>
+        <div *ngIf="isEdit">
+          <button class="c-btn del-btn mr-2" (click)="deleteProduct()">
+            Delete
+          </button>
+          <button type="submit" class="c-btn success-btn" (click)="updateProduct()">
+            Update
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

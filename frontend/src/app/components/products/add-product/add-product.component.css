@@ -1,0 +1,44 @@
+.fa-user {
+  font-size: 20px;
+}
+
+.optional {
+  font-size: 14px;
+}
+
+.extra-det-btn-div {
+  display: flex;
+  align-self: flex-end;
+}
+
+.extra-d {
+  display: flex;
+  gap: 10px;
+}
+
+.extra-d div {
+  width: 49%;
+}
+
+.extra-details-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.extra-details-main-div {
+  border-radius: 10px;
+}
+
+.extra-d-header {
+  display: flex;
+  gap: 25px;
+}
+
+.mr-5rem {
+  margin-right: 5.2rem;
+}
+
+.scroll-body {
+  max-height: 172px;
+  overflow-y: scroll;
+}

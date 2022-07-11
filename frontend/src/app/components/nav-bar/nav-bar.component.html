@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark nav-bar">
+    <div class="d-flex nav-ietms">
+        <a routerLink="/" class="navbar-brand">RT DigiTech</a>
+        <div class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a routerLink="product" class="nav-link" routerLinkActive="active-link">Products</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="employee" class="nav-link" routerLinkActive="active-link">Employee</a>
+            </li>
+        </div>
+    </div>
+    <div>
+        <span class="" id="cartBtn" (click)="showCartDiv($event)">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        </span>
+    </div>
+    <div class="mt-4 container" *ngIf="cartDiv" id="cart-div" (click)="$event.stopPropagation()">
+        <div class="shopping-cart">
+            <div class="shopping-cart-header p-2">
+                <!-- <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span> -->
+                <i *ngIf="products && products.length==0" class="fa fa-shopping-cart h-1" aria-hidden="true"></i>
+                <i *ngIf="products && products.length>0" class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                <div *ngIf="products && products.length>0" class="total-top">
+                    <span class="lighter-text">Total:</span>
+                    <span class="total-amount">₹ {{totalPrice}}</span>
+                </div>
+            </div>
+            <div class="shopping-cart-items">
+                <div class="d-flex w-100 justify-content-between align-items-center mb-2" *ngFor="let prod of products">
+                    <div class="cart-item-div">
+                        <div class="cart-text ml-2">
+                            {{prod.title}}
+                        </div>
+                        <div class="mr-2 cart-text">
+                            ₹ {{prod.price}}
+                        </div>
+                    </div>
+                    <button class="c-btn" (click)="removeProdFormCart(prod)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="products && products.length==0">
+                <label class="alert-info">Empty cart!</label>
+            </div>
+            <hr *ngIf="products && products.length>0">
+            <div *ngIf="products && products.length>0" class="checkout-btn-div">
+                <label class="view-cart" (click)="viewCart()"> View Cart</label>
+                <button class="btn">
+                    Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
